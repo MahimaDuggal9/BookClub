@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Wishlist</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <h1>Book Wishlist</h1>
+    <form id="wishlist-form">
+        <input type="text" id="book-id" placeholder="Enter Book ID">
+        <button type="button" id="add-to-wishlist">Add to Wishlist</button>
+    </form>
+    <div id="wishlist">
+        <h2>My Wishlist</h2>
+        <ul id="wishlist-items"></ul>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const addToWishlistButton = document.getElementById('add-to-wishlist');
+            const bookIdInput = document.getElementById('book-id');
+            const wishlistItems = document.getElementById('wishlist-items');
+
+            addToWishlistButton.addEventListener('click', function () {
+                const bookId = bookIdInput.value;
+
+                fetch('/add_to_wishlist', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `book_id=${bookId}`,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message === 'Book added to wishlist') {
+                        bookIdInput.value = '';
+                        loadWishlist();
+                    }
+                });
+            });
+
+            function loadWishlist() {
+                fetch('/get_wishlist')
+                .then(response => response.json())
+                .then(data => {
+                    const wishlist = data.wishlist;
+                    wishlistItems.innerHTML = '';
+                    wishlist.forEach(bookId => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = bookId;
+                        wishlistItems.appendChild(listItem);
+                    });
+                });
+            }
+
+            // Load wishlist on page load
+            loadWishlist();
+        });
+    </script>
+</body>
+</html>

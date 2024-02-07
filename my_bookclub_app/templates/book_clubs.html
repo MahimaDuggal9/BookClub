@@ -1,0 +1,21 @@
+# my_bookclub_app/templates/book_clubs.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Clubs</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <h1>Book Clubs</h1>
+
+    <ul>
+        {% for book_club in book_clubs %}
+            <li>
+                <h2>{{ book_club.name }}</h2>
+                <p>{{ book_club.description }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

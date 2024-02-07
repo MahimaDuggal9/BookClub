@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <div class="header">
+        <a href="/logout" class="logout-link">Logout</a>
+        <div class="welcome-text">
+            <h1>Welcome, {{ user_id }}</h1>
+        </div>
+    </div>
+    
+    <div class="content">
+        <h2>Book Club App</h2>
+        <p class="description">Welcome to the Book Club App. You can create a book club or manage your wishlist.</p>
+
+        <div class="actions">
+            <a href="/get_create_book_club" class="btn">Create a Book Club</a>
+            <a href="/wishlist" class="btn">Manage Wishlist</a>
+        </div>
+    </div>
+</body>
+</html>
